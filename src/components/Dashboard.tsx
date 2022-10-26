@@ -2,14 +2,13 @@ import React from 'react';
 import { Container, Row, Col, Spinner } from 'react-bootstrap';
 
 import '../App.css';
-// import BarChart from './BarChart';
-// import DoughnutChart from './DoughnutChart';
 import DashboardBlock from './DashboardBlock';
 import CastRulesTable from './CastRulesTable';
-import KeyFigures from './KeyFigures';
-import { FetchC02EmissionData, DataPoint } from '../api/FetchData';
 import Detail from './Detail';
 
+// import { useState } from "react";
+// import "./../styles.css";
+// import Checkbox from "./checkbox";
 
 const labels: string[] = [
   'feb. 2021',
@@ -21,6 +20,15 @@ const labels: string[] = [
   'aug. 2021'
 ];
 
+// const [isCheckedA, setIsCheckedA] = useState(false);
+// const handleChangeA = (e: React.ChangeEvent<HTMLInputElement>) => {
+//   setIsCheckedA(e.target.checked);
+// };
+
+// const [isCheckedB, setIsCheckedB] = useState(false);
+// const handleChangeB = (e: React.ChangeEvent<HTMLInputElement>) => {
+//   setIsCheckedB(e.target.checked);
+// };
 
 export interface Measurements {
   label: string,
@@ -30,16 +38,15 @@ export interface Measurements {
 
 export const dataColors = { blue: '#3B82F6', green: '#10B981' }
 
-
 // CAST rules data
 let castRulesColNames: string[] = ["#", "Advice", "Urgent"];
 let castRulesLines: string[][] = [
-  ["1", "Advice 1", "Yes"],
-  ["2", "Advice 2", "No"],
-  ["3", "Advice 3", "No"],
-  ["4", "Advice 4", "Yes"],
-  ["5", "Advice 5", "No"],
-  ["6", "Advice 6", "No"],
+  ["1", "Hire Engineers for product 1", "Yes"],
+  ["2", "Hire Engineers for product 2", "Yes"],
+  ["3", "Hire Comercials for product 2", "Yes"],
+  ["4", "Fire Managers for product 1", "No"],
+  ["5", "Hire Managers for product 2", "No"],
+  ["6", "Fire Comercilas for product 1", "No"],
   ["7", "Advice 7", "No"],
   ["8", "Advice 8", "Yes"],
   ["9", "Advice 9", "No"],
@@ -86,32 +93,6 @@ export default class Dashboard extends React.Component<DashboardProps, Dashboard
     this.showDetailFunction = this.showDetailFunction.bind(this);
   }
 
-  async componentDidMount() {
-    console.log("fetch data")
-
-    // get gcp data
-    await FetchC02EmissionData('GCP').then(
-      (gcpData: DataPoint[]) => {
-        console.log(gcpData);
-        // get dates lists and co2 measures
-        const dates = gcpData.map(point => point.date);
-        const dataPoints = gcpData.map(point => point.gCO2eq);
-        // save this data to the state
-        this.setState(prevState => ({ gcpData: { ...prevState.gcpData, dataPoints: dataPoints }, dates: dates, loadingGcp: false }))
-      });
-
-    // get greenspector
-    await FetchC02EmissionData('greenspector').then(
-      (usersData: DataPoint[]) => {
-        console.log(usersData);
-        // get dates lists and co2 measures
-        const dates = usersData.map(point => point.date);
-        const dataPoints = usersData.map(point => point.gCO2eq);
-        // save this data to the state
-        this.setState(prevState => ({ usersData: { ...prevState.usersData, dataPoints: dataPoints }, loadingGreespector: false }))
-      });
-  }
-
   showDetailFunction(show: boolean, blockShortName: string) {
     if (show == false) {
       this.setState({ showDetails: show, blockDetailShortName: '' });
@@ -126,81 +107,293 @@ export default class Dashboard extends React.Component<DashboardProps, Dashboard
       let shortName = this.state.blockDetailShortName;
       // put switch statement here
       switch (shortName) {
-        case "Legal & Compliance":
+
+        case "Business Viability":
           // show this block
           return (
-            <Detail showDetail={this.showDetailFunction} title="Legal & Compliance">
-              {/* <BarChart dates={this.state.dates} emissions={[this.state.gcpData, this.state.usersData]} /> */}
-              <img src="legal_picture.png" className="img-fluid m-1" />
+            <Detail showDetail={this.showDetailFunction} title="Business Viability">
+              <Row className="justify-content-md-center">
+                <h1>
+                  <blockquote className="blockquote text-center">
+                  Business viability means that a business is / or has the potential to be successful. A viable business is profitable, which means it has more revenue coming in than it's spending on the costs of running the business.
+                  If a business isn't viable, it's difficult to recover. The business would need to increase revenue, cut costs, or both. Viability is closely linked to profit as well as solvency and liquidity.
+                  </blockquote>
+                </h1>
+              </Row>
+              <img src="Performance_Analytics_img.png" className="img-fluid m-1" />
             </Detail>
           );
+
+        case "Synergy":
+          return (
+            <Detail showDetail={this.showDetailFunction} title="Synergy">
+              <img src="Synergy_img.png" className="img-fluid m-1" />
+            </Detail>
+          );
+
+        case "Business Plan Reviewer":
+          return (
+            <Detail showDetail={this.showDetailFunction} title="Business Plan Reviewer">
+              <img src="Business_Plan_Reviewer_img.png" className="img-fluid m-1" />
+            </Detail>
+          );
+
         case "Human Ressources":
           return (
             <Detail showDetail={this.showDetailFunction} title="Human Ressources">
-              <Container style={{ width: "70%" }}>
-                <KeyFigures data={figData.slice(0, 100)} />
-              </Container>
+              <CastRulesTable colNames={castRulesColNames} lines={castRulesLines.slice(0, 6)} />
             </Detail>
           );
-        case "Media":
+
+        case "Customer Acquisition Strategy":
           return (
-            <Detail showDetail={this.showDetailFunction} title="Media">
-              <img src="media_picture.png" className="img-fluid m-1" />
+            <Detail showDetail={this.showDetailFunction} title="Customer Acquisition Strategy">
+              <img src="Customer_Acquisition_Strategy_img.png" className="img-fluid m-1" />
             </Detail>
           );
-        case "Organisational Structure":
+
+        case "Organizational Structure":
           return (
-            <Detail showDetail={this.showDetailFunction} title="Organisational Structure">
-              <CastRulesTable colNames={castRulesColNames} lines={castRulesLines} />
+            <Detail showDetail={this.showDetailFunction} title="Organizational Structure">
+              <div className="App text-center">
+                <h2>Divisional Organization</h2>
+              </div>
+              <img src="OS_divisional.png" className="img-fluid m-1" />
+              <div className="App text-center">
+                <h2>Functionnal Organization</h2>
+              </div>
+              <img src="OS_functionnal.png" className="img-fluid m-1" />
+              <div className="App text-center">
+                <h2>Flat Organization</h2>
+              </div>
+              <img src="OS_flat.png" className="img-fluid m-1" />
             </Detail>
           );
-        case "Human Ressources":
+
+        case "Operations Optimization":
           return (
-            <Detail showDetail={this.showDetailFunction} title="Human Ressources">
-              <KeyFigures data={figData} />
+            <Detail showDetail={this.showDetailFunction} title="Operations Optimization">
+              <img src="Operations_Optimization_img.png" className="img-fluid m-1" />
             </Detail>
           );
-        case "Decision Making":
+
+        case "Accounting Compliance":
           return (
-            <Detail showDetail={this.showDetailFunction} title="Decision Making">
-              <img src="decision_making_picture.png" className="img-fluid m-1" />
+            <Detail showDetail={this.showDetailFunction} title="Accounting Compliance">
+              <img src="Accounting_Compliance_img.png" className="img-fluid m-1" />
             </Detail>
           );
+
+        case "Legal":
+          return (
+            <Detail showDetail={this.showDetailFunction} title="Legal">
+              <Row className="justify-content-md-center">
+                <h1>
+                  <blockquote className="blockquote text-center">
+                    An investor will be more likely to invest in your firm if you have a clean legal history, which can only be achieved if taken care from the very first steps.
+                  </blockquote>
+                </h1>
+              </Row>
+              <img src="Legal_img_1.png" className="img-fluid m-1" />
+              <Row>
+                <Col sm>
+                  <div className="App text-center">
+                    <h4>
+                      <div className="text-center">
+                        <Row>
+                          <div className="text-center">
+                            <input type="checkbox" id="topping" name="topping" value="Paneer1" />Equity division
+                          </div>
+                          <div className="text-center">
+                            <input type="checkbox" id="topping" name="topping" value="Paneer1" />Decision making
+                          </div>
+                          <div className="text-center">
+                            <input type="checkbox" id="topping" name="topping" value="Paneer1" />Exiting process
+                          </div>
+                        </Row>
+                      </div>
+                    </h4>
+                  </div>
+                </Col>
+                <Col sm>
+                <div className="App text-center">
+                    <h4>
+                      <div className="text-center">
+                        <Row>
+                          <div className="text-center">
+                            <input type="checkbox" id="topping" name="topping" value="Paneer1" />Sole Proprietorship
+                          </div>
+                          <div className="text-center">
+                            <input type="checkbox" id="topping" name="topping" value="Paneer1" />General Partnership
+                          </div>
+                          <div className="text-center">
+                            <input type="checkbox" id="topping" name="topping" value="Paneer1" />LLCs
+                          </div>
+                        </Row>
+                      </div>
+                    </h4>
+                  </div>
+                </Col>
+                <Col sm>
+                <div className="App text-center">
+                    <h4>
+                      <div className="text-center">
+                        <Row>
+                          <div className="text-center">
+                            <input type="checkbox" id="topping" name="topping" value="Paneer1" />Patent and Trademark office
+                          </div>
+                          <div className="text-center">
+                            <input type="checkbox" id="topping" name="topping" value="Paneer1" />International implications
+                          </div>
+                        </Row>
+                      </div>
+                    </h4>
+                  </div>
+                </Col>
+                <Col sm>
+                <div className="App text-center">
+                    <h4>
+                      <div className="text-center">
+                        <Row>
+                          <div className="text-center">
+                            <input type="checkbox" id="topping" name="topping" value="Paneer1" />Stock issuance
+                          </div>
+                        </Row>
+                      </div>
+                    </h4>
+                  </div>
+                </Col>
+              </Row>
+              <img src="Legal_img_2.png" className="img-fluid m-1" />
+              <Row>
+                <Col sm>
+                  <div className="App text-center">
+                    <h4>
+                      <div className="text-center">
+                        <Row>
+                          <div className="text-center">
+                            <input type="checkbox" id="topping" name="topping" value="Paneer1" />Tax ID
+                          </div>
+                          <div className="text-center">
+                            <input type="checkbox" id="topping" name="topping" value="Paneer1" />Tax incentives
+                          </div>
+                          <div className="text-center">
+                            <input type="checkbox" id="topping" name="topping" value="Paneer1" />Small business specific Tax
+                          </div>
+                        </Row>
+                      </div>
+                    </h4>
+                  </div>
+                </Col>
+                <Col sm>
+                <div className="App text-center">
+                    <h4>
+                      <div className="text-center">
+                        <Row>
+                          <div className="text-center">
+                            <input type="checkbox" id="topping" name="topping" value="Paneer1" />Statement of purpose
+                          </div>
+                          <div className="text-center">
+                            <input type="checkbox" id="topping" name="topping" value="Paneer1" />Shareholders
+                          </div>
+                          <div className="text-center">
+                            <input type="checkbox" id="topping" name="topping" value="Paneer1" />Amendment to the Bylaws
+                          </div>
+                        </Row>
+                      </div>
+                    </h4>
+                  </div>
+                </Col>
+                <Col sm>
+                <div className="App text-center">
+                    <h4>
+                      <div className="text-center">
+                        <Row>
+                          <div className="text-center">
+                            <input type="checkbox" id="topping" name="topping" value="Paneer1" />Human Resources
+                          </div>
+                          <div className="text-center">
+                            <input type="checkbox" id="topping" name="topping" value="Paneer1" />Patents, trademarks and certifications
+                          </div>
+                          <div className="text-center">
+                            <input type="checkbox" id="topping" name="topping" value="Paneer1" />NDA
+                          </div>
+                        </Row>
+                      </div>
+                    </h4>
+                  </div>
+                </Col>
+                <Col sm>
+                <div className="App text-center">
+                    <h4>
+                      <div className="text-center">
+                        <Row>
+                          <div className="text-center">
+                            <input type="checkbox" id="topping" name="topping" value="Paneer1" />Industry specific
+                          </div>
+                          <div className="text-center">
+                            <input type="checkbox" id="topping" name="topping" value="Paneer1" />Location specific
+                          </div>
+                          <div className="text-center">
+                            <input type="checkbox" id="topping" name="topping" value="Paneer1" />Personal data protection
+                          </div>
+                        </Row>
+                      </div>
+                    </h4>
+                  </div>
+                </Col>
+              </Row>
+            </Detail>
+          );
+
       }
     }
 
     return (
       <Row>
-        <Col sm={12} md={7} className="p-2">
-          <DashboardBlock title="Legal & Compliance" shortName="Legal & Compliance" helpText="Details about Legal & Compliance" showDetail={this.showDetailFunction}>
-            {/* {this.state.loadingGcp || this.state.loadingGreespector ?
-              <Container className="text-center">
-                <Spinner animation="border" variant="primary" className="my-3" />
-              </Container> :
-              <BarChart dates={this.state.dates} emissions={[this.state.gcpData, this.state.usersData]} />} */}
-            <img src="legal_picture.png" className="img-fluid m-1" />
-          </DashboardBlock>
-
-          <DashboardBlock title="Media" shortName="Media" showDetail={this.showDetailFunction}>
-            <img src="media_picture.png" className="img-fluid m-1" />
-          </DashboardBlock>
-        </Col>
 
         <Col sm={12} md={5} className="p-2">
-          <DashboardBlock title="Human Ressources" shortName="Human Ressources" showDetail={this.showDetailFunction}>
-            <KeyFigures data={figData.slice(0, 3)} />
+
+          <DashboardBlock title="Business Viability" shortName="Business Viability" helpText="Details about Business Viability" showDetail={this.showDetailFunction}>
+            <img src="Performance_Analytics_img.png" className="img-fluid m-1" />
           </DashboardBlock>
 
-          <DashboardBlock title="Organisational Structure" shortName="Organisational Structure" helpText="Details about Organisational Structure" showDetail={this.showDetailFunction}>
-            {/* <h3 className="mb-3 text-center"><b>3.47 / 5</b></h3> */}
+          <DashboardBlock title="Organizational Structure" shortName="Organizational Structure" helpText="Details about Organizational Structure" showDetail={this.showDetailFunction}>
+            <img src="OS_divisional.png" className="img-fluid m-1" />
+          </DashboardBlock>
+
+          <DashboardBlock title="Synergy" shortName="Synergy" helpText="Details about Synergy" showDetail={this.showDetailFunction}>
+            <img src="Synergy_img.png" className="img-fluid m-1" />
+          </DashboardBlock>
+
+          <DashboardBlock title="Business Plan Reviewer" shortName="Business Plan Reviewer" helpText="Details about Business Plan Reviewer" showDetail={this.showDetailFunction}>
+            <img src="Business_Plan_Reviewer_img.png" className="img-fluid m-1" />
+          </DashboardBlock>
+
+          <DashboardBlock title="Human Ressources" shortName="Human Ressources" helpText="Details about Human Ressources" showDetail={this.showDetailFunction}>
             <CastRulesTable colNames={castRulesColNames} lines={castRulesLines.slice(0, 6)} />
           </DashboardBlock>
 
-          <DashboardBlock title="Decision Making" shortName="Decision Making" helpText="Details about Decision Making" showDetail={this.showDetailFunction}>
-            {/* <h3 className="mb-3 text-center"><b>3.47 / 5</b></h3> */}
-            {/* <CastRulesTable colNames={castRulesColNames} lines={castRulesLines.slice(0, 6)} /> */}
-            <img src="decision_making_picture.png" className="img-fluid m-1" />
+        </Col>
+
+        <Col sm={12} md={7} className="p-2">
+
+          <DashboardBlock title="Legal" shortName="Legal" helpText="Details about Legal" showDetail={this.showDetailFunction}>
+            <img src="Legal_img.png" className="img-fluid m-1" />
           </DashboardBlock>
+
+          <DashboardBlock title="Customer Acquisition Strategy" shortName="Customer Acquisition Strategy" helpText="Details about Customer Acquisition Strategy" showDetail={this.showDetailFunction}>
+            <img src="Customer_Acquisition_Strategy_img.png" className="img-fluid m-1" />
+          </DashboardBlock>
+
+          <DashboardBlock title="Operations Optimization" shortName="Operations Optimization" helpText="Details about Operations Optimization" showDetail={this.showDetailFunction}>
+            <img src="Operations_Optimization_img.png" className="img-fluid m-1" />
+          </DashboardBlock>
+
+          <DashboardBlock title="Accounting Compliance" shortName="Accounting Compliance" helpText="Details about Accounting Compliance" showDetail={this.showDetailFunction}>
+            <img src="Accounting_Compliance_img.png" className="img-fluid m-1" />
+          </DashboardBlock>
+
         </Col>
 
       </Row>
