@@ -12,7 +12,7 @@ class Login extends React.Component<any> {
                 
                 <Navbar bg="dark" variant="dark">
                     <Container>
-                        <Navbar.Brand href="#home"><img src="Star_Up_Logo.png" height={40} /> STARUP (demo)</Navbar.Brand>
+                        <Navbar.Brand href="#home"><img src="Star_Up_Logo.png" height={40} /> STARUP (deployed demo)</Navbar.Brand>
                         <Nav className="me-auto">
                         </Nav>
                     </Container>
