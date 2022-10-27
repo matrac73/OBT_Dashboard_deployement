@@ -10,9 +10,9 @@ ReactDOM.render(
   <BrowserRouter>
     <Routes>
       <Route path="/callpage" element={<CallPage />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/" element={<App />}>
-        <Route path="/" element={<Dashboard />} />
+      <Route path="/" element={<Login />} />
+      <Route path="/app" element={<App />}>
+        <Route path="/app" element={<Dashboard />} />
       </Route>
     </Routes>
   </BrowserRouter>,

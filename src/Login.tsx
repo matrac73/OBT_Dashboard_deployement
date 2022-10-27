@@ -34,14 +34,14 @@ class Login extends React.Component<any> {
                                 <Form.Control type="password" placeholder="Enter password" />
                             </Form.Group>
                             <div className="d-flex justify-content-around">
-                                <a href="/login" className="btn" >Forgot Password?</a>
+                                <a href="/" className="btn" >Forgot Password?</a>
                             </div>
                             <div className="d-flex justify-content-around">
-                                <a href="/" className="btn btn-primary" >Submit</a>
+                                <a href="/app" className="btn btn-primary" >Submit</a>
                             </div>
                             <div className="d-flex justify-content-around">
                                 <h5 className="d-flex justify-content-around">
-                                    <a href="/login" className="btn" >Not a member? Register here</a>
+                                    <a href="/" className="btn" >Not a member? Register here</a>
                                 </h5>
                             </div>
                             
