@@ -24,7 +24,7 @@ class CustomNavBar extends React.Component {
                 <Container>
                     <Nav className="me-auto">
                         <Nav.Link href={require("./OBT_report.pdf")} download="OBT_report">Export</Nav.Link>
-                        <Nav.Link href="/">Settings</Nav.Link>
+                        <Nav.Link href="#home">Settings</Nav.Link>
                         <Nav.Link href="/callpage">Call a Consultant</Nav.Link>
                         <Nav.Link href="/login">Log out</Nav.Link>
                     </Nav>
