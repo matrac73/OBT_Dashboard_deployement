@@ -6,10 +6,6 @@ import DashboardBlock from './DashboardBlock';
 import CastRulesTable from './CastRulesTable';
 import Detail from './Detail';
 
-// import { useState } from "react";
-// import "./../styles.css";
-// import Checkbox from "./checkbox";
-
 const labels: string[] = [
   'feb. 2021',
   'march 2021',
@@ -20,16 +16,6 @@ const labels: string[] = [
   'aug. 2021'
 ];
 
-// const [isCheckedA, setIsCheckedA] = useState(false);
-// const handleChangeA = (e: React.ChangeEvent<HTMLInputElement>) => {
-//   setIsCheckedA(e.target.checked);
-// };
-
-// const [isCheckedB, setIsCheckedB] = useState(false);
-// const handleChangeB = (e: React.ChangeEvent<HTMLInputElement>) => {
-//   setIsCheckedB(e.target.checked);
-// };
-
 export interface Measurements {
   label: string,
   dataPoints: number[],
@@ -38,7 +24,6 @@ export interface Measurements {
 
 export const dataColors = { blue: '#3B82F6', green: '#10B981' }
 
-// CAST rules data
 let castRulesColNames: string[] = ["#", "Advice", "Urgent"];
 let castRulesLines: string[][] = [
   ["1", "Hire Engineers for product 1", "Yes"],
@@ -52,6 +37,19 @@ let castRulesLines: string[][] = [
   ["9", "Advice 9", "No"],
   ["10", "Advice 10", "No"],
   ["11", "Advice 11", "No"],
+];
+
+let CustomersAquisitionColNames: string[] = ["#", "Pays", "Clients"];
+let CustomersAquisitionLines: string[][] = [
+  ["1", "India", "5249"],
+  ["2", "United States", "78526"],
+  ["3", "Russia", "1256"],
+  ["4", "Brazil", "531"],
+  ["5", "China", "127"],
+  ["6", "France", "25489"],
+  ["7", "Australia", "14256"],
+  ["8", "Singapore", "10247"],
+  ["9", "Norway", "8951"],
 ];
 
 // Key figures data
@@ -111,8 +109,9 @@ export default class Dashboard extends React.Component<DashboardProps, Dashboard
         case "Business Viability":
           // show this block
           return (
-            <Detail showDetail={this.showDetailFunction} title="Business Viability">
-              <Row className="justify-content-md-center">
+            <Detail showDetail={this.showDetailFunction} title="">
+              <img src="Business_Viability_inside.png" className="img-fluid m-1" />
+              {/* <Row className="justify-content-md-center">
                 <h1>
                   <blockquote className="blockquote text-center">
                   Business viability means that a business is / or has the potential to be successful. A viable business is profitable, which means it has more revenue coming in than it's spending on the costs of running the business.
@@ -120,14 +119,21 @@ export default class Dashboard extends React.Component<DashboardProps, Dashboard
                   </blockquote>
                 </h1>
               </Row>
-              <img src="Performance_Analytics_img.png" className="img-fluid m-1" />
+              <img src="Performance_Analytics_img.png" className="img-fluid m-1" /> */}
             </Detail>
           );
 
         case "Synergy":
           return (
-            <Detail showDetail={this.showDetailFunction} title="Synergy">
-              <img src="Synergy_img.png" className="img-fluid m-1" />
+            <Detail showDetail={this.showDetailFunction} title="">
+              <img src="Synergy_inside.png" className="img-fluid m-1" />
+            </Detail>
+          );
+
+        case "Fundraising":
+          return (
+            <Detail showDetail={this.showDetailFunction} title="">
+              <img src="Fundraising_inside.png" className="img-fluid m-1" />
             </Detail>
           );
 
@@ -149,6 +155,7 @@ export default class Dashboard extends React.Component<DashboardProps, Dashboard
           return (
             <Detail showDetail={this.showDetailFunction} title="Customer Acquisition Strategy">
               <img src="Customer_Acquisition_Strategy_img.png" className="img-fluid m-1" />
+              <CastRulesTable colNames={CustomersAquisitionColNames} lines={CustomersAquisitionLines.slice(0, 9)} />
             </Detail>
           );
 
@@ -186,8 +193,10 @@ export default class Dashboard extends React.Component<DashboardProps, Dashboard
 
         case "Legal":
           return (
-            <Detail showDetail={this.showDetailFunction} title="Legal">
-              <Row className="justify-content-md-center">
+            <Detail showDetail={this.showDetailFunction} title="">
+              <img src="Legal_inside.png" className="img-fluid m-1" />
+              <img src="Legal_form_inside.png" className="img-fluid m-1" />
+              {/* <Row className="justify-content-md-center">
                 <h1>
                   <blockquote className="blockquote text-center">
                     An investor will be more likely to invest in your firm if you have a clean legal history, which can only be achieved if taken care from the very first steps.
@@ -342,7 +351,7 @@ export default class Dashboard extends React.Component<DashboardProps, Dashboard
                     </h4>
                   </div>
                 </Col>
-              </Row>
+              </Row> */}
             </Detail>
           );
 
@@ -354,44 +363,48 @@ export default class Dashboard extends React.Component<DashboardProps, Dashboard
 
         <Col sm={12} md={5} className="p-2">
 
+          <DashboardBlock title="Legal" shortName="Legal" helpText="Details about Legal" showDetail={this.showDetailFunction}>
+            <img src="Legal_img.png" className="img-fluid m-1" />
+          </DashboardBlock>
+
           <DashboardBlock title="Business Viability" shortName="Business Viability" helpText="Details about Business Viability" showDetail={this.showDetailFunction}>
             <img src="Performance_Analytics_img.png" className="img-fluid m-1" />
+          </DashboardBlock>
+
+          <DashboardBlock title="Fundraising" shortName="Fundraising" helpText="Details about Fundraising" showDetail={this.showDetailFunction}>
+            <img src="Fundraising_img.png" className="img-fluid m-1" />
           </DashboardBlock>
 
           <DashboardBlock title="Organizational Structure" shortName="Organizational Structure" helpText="Details about Organizational Structure" showDetail={this.showDetailFunction}>
             <img src="OS_divisional.png" className="img-fluid m-1" />
           </DashboardBlock>
 
-          <DashboardBlock title="Synergy" shortName="Synergy" helpText="Details about Synergy" showDetail={this.showDetailFunction}>
-            <img src="Synergy_img.png" className="img-fluid m-1" />
-          </DashboardBlock>
-
           <DashboardBlock title="Business Plan Reviewer" shortName="Business Plan Reviewer" helpText="Details about Business Plan Reviewer" showDetail={this.showDetailFunction}>
             <img src="Business_Plan_Reviewer_img.png" className="img-fluid m-1" />
           </DashboardBlock>
 
-          <DashboardBlock title="Human Ressources" shortName="Human Ressources" helpText="Details about Human Ressources" showDetail={this.showDetailFunction}>
-            <CastRulesTable colNames={castRulesColNames} lines={castRulesLines.slice(0, 6)} />
+          <DashboardBlock title="Accounting Compliance" shortName="Accounting Compliance" helpText="Details about Accounting Compliance" showDetail={this.showDetailFunction}>
+            <img src="Accounting_Compliance_img.png" className="img-fluid m-1" />
           </DashboardBlock>
 
         </Col>
 
         <Col sm={12} md={7} className="p-2">
 
-          <DashboardBlock title="Legal" shortName="Legal" helpText="Details about Legal" showDetail={this.showDetailFunction}>
-            <img src="Legal_img.png" className="img-fluid m-1" />
-          </DashboardBlock>
-
           <DashboardBlock title="Customer Acquisition Strategy" shortName="Customer Acquisition Strategy" helpText="Details about Customer Acquisition Strategy" showDetail={this.showDetailFunction}>
             <img src="Customer_Acquisition_Strategy_img.png" className="img-fluid m-1" />
+          </DashboardBlock>
+
+          <DashboardBlock title="Synergy" shortName="Synergy" helpText="Details about Synergy" showDetail={this.showDetailFunction}>
+            <img src="Synergy_img.png" className="img-fluid m-1" />
           </DashboardBlock>
 
           <DashboardBlock title="Operations Optimization" shortName="Operations Optimization" helpText="Details about Operations Optimization" showDetail={this.showDetailFunction}>
             <img src="Operations_Optimization_img.png" className="img-fluid m-1" />
           </DashboardBlock>
 
-          <DashboardBlock title="Accounting Compliance" shortName="Accounting Compliance" helpText="Details about Accounting Compliance" showDetail={this.showDetailFunction}>
-            <img src="Accounting_Compliance_img.png" className="img-fluid m-1" />
+          <DashboardBlock title="Human Ressources" shortName="Human Ressources" helpText="Details about Human Ressources" showDetail={this.showDetailFunction}>
+            <CastRulesTable colNames={castRulesColNames} lines={castRulesLines.slice(0, 6)} />
           </DashboardBlock>
 
         </Col>
