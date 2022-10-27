@@ -37,7 +37,7 @@ class Login extends React.Component<any> {
                                 <a href="/login" className="btn" >Forgot Password?</a>
                             </div>
                             <div className="d-flex justify-content-around">
-                                <a href="/" className="btn btn-primary" >Submit</a>
+                                <a href="/dashboard" className="btn btn-primary" >Submit</a>
                             </div>
                             <div className="d-flex justify-content-around">
                                 <h5 className="d-flex justify-content-around">
