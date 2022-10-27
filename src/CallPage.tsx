@@ -206,8 +206,8 @@ export default class CallPage extends React.Component<DashboardProps, DashboardS
                     <Navbar.Brand href="/"><img src="/Logo.png" height={25} /> Organisation Belt Toolkit (demo)</Navbar.Brand>
                     <Nav className="me-auto">
                         <Nav.Link href="#home">Settings</Nav.Link>
-                        <Nav.Link href="/">Back to Main</Nav.Link>
-                        <Nav.Link href="/login">Log out</Nav.Link>
+                        <Nav.Link href="/app">Back to Main</Nav.Link>
+                        <Nav.Link href="/">Log out</Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>
