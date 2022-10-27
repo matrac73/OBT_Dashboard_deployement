@@ -11,7 +11,7 @@ class CustomNavBar extends React.Component {
             <div>
                 <Navbar bg="dark" variant="dark">
                     <Container>
-                        <Navbar.Brand href="/dashboard"><img src="/Star_Up_Logo.png" height={40} /> STARUP (deployed demo)</Navbar.Brand>
+                        <Navbar.Brand href="/"><img src="/Star_Up_Logo.png" height={40} /> STARUP (deployed demo)</Navbar.Brand>
                         {/* <Nav className="me-auto">
                             <Nav.Link href={require("./OBT_report.pdf")} download="OBT_report">Export</Nav.Link>
                             <Nav.Link href="#home">Settings</Nav.Link>
@@ -24,9 +24,9 @@ class CustomNavBar extends React.Component {
                 <Container>
                     <Nav className="me-auto">
                         <Nav.Link href={require("./OBT_report.pdf")} download="OBT_report">Export</Nav.Link>
-                        <Nav.Link href="#home">Settings</Nav.Link>
+                        <Nav.Link href="/">Settings</Nav.Link>
                         <Nav.Link href="/callpage">Call a Consultant</Nav.Link>
-                        <Nav.Link href="/">Log out</Nav.Link>
+                        <Nav.Link href="/login">Log out</Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>
